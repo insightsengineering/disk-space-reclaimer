@@ -1,19 +1,19 @@
 ---
-name: SuperLinter
+name: SuperLinter 🦸🏻‍♀️
 on:
   pull_request:
     branches:
       - main
 jobs:
   lint:
-    name: Lint Code Base
+    name: Lint Code Base 🧶
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout Code 🛎️
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Lint Code Base
+      - name: Lint Code Base 🧶
         uses: github/super-linter/slim@v5
         env:
           VALIDATE_ALL_CODEBASE: false

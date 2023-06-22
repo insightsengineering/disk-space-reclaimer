@@ -5,14 +5,15 @@ on:
       - main
 jobs:
   test:
+    name: Test this action 🧪
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo 🛎️
         uses: actions/checkout@v3
-      - name: Free Disk Space
+      - name: Free Disk Space 🆓
         uses: ./
         with:
-          tool-cache: true
+          tools-cache: true
           android: true
           dotnet: true
           haskell: true
