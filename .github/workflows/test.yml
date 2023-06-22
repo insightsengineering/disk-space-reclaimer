@@ -1,20 +1,21 @@
-name: Free Disk Space (Ubuntu)
-on: push
-
+name: Test this action 🧪
+on:
+  pull_request:
+    branches:
+      - main
 jobs:
-  free-disk-space:
+  test:
     runs-on: ubuntu-latest
     steps:
-      # If there is a problem with this GitHub Actions, this step will fail
+      - name: Checkout Repo 🛎️
+        uses: actions/checkout@v3
       - name: Free Disk Space
-        uses: jlumbroso/free-disk-space@main
+        uses: ./
         with:
           tool-cache: true
-
-          # all of these default to true, but feel free to set to
-          # false if necessary for your workflow
           android: true
           dotnet: true
           haskell: true
           large-packages: true
           swap-storage: true
+          docker-images: true
