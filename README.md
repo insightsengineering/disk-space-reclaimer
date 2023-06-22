@@ -4,7 +4,7 @@
 
 A customizable GitHub Action to free disk space on Ubuntu GitHub Action runners.
 
-On a typical Ubuntu runner, with all options turned on (or not turned off rather), this can clear up to 27 GB of disk space in about 4 minutes (the longest period is calling `apt` to uninstall packages). This is useful when you need a lot of disk space to run computations.
+On a typical Ubuntu runner, with all options turned on (or not turned off rather), this can clear up to 34 GB of disk space in less than 4 minutes (the longest period is calling `apt` to uninstall packages). This is useful when you need a lot of disk space to run computations.
 
 ## Example
 
@@ -57,13 +57,14 @@ Here are a few sources of inspiration:
 The amount of space storage saved by each option on an `ubuntu-22.04` runner is summarized here:
 
 ```bash
-=> Android library: Saved 14GiB
-=> .NET runtime: Saved 2.7GiB
+=> Android library: Saved 12GiB
+=> .NET runtime: Saved 1.7GiB
 => Haskell runtime: Saved 0B
-=> Large misc. packages: Saved 5.3GiB
-=> Tool cache: Saved 5.9GiB
-=> Swap storage: Saved 4.0GiB
+=> Large misc. packages: Saved 4.6GiB
 => Docker images: Saved 3.6GiB
+=> Tool cache: Saved 8.4GiB
+=> Swap storage: Saved 4.0GiB
+=> Saved 30GiB
 
-Total: Saved 31GiB
+=> Total 34GiB
 ```
