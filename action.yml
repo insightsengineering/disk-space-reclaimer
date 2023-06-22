@@ -20,7 +20,7 @@ inputs:
     description: "Remove large packages"
     required: false
     default: "true"
-  tool-cache:
+  tools-cache:
     description: "Remove image tool cache"
     required: false
     default: "false"
@@ -38,3 +38,11 @@ runs:
     - name: "Clean up disk space 🗑️"
       run: bash core.sh
       shell: bash
+      env:
+        ANDROID: "${{ inputs.android }}"
+        DOTNET: "${{ inputs.dotnet }}"
+        HASKELL: "${{ inputs.haskell }}"
+        LARGE_PACKAGES: "${{ inputs.large-packages }}"
+        TOOLS_CACHE: "${{ inputs.tools-cache }}"
+        SWAP_STORAGE: "${{ inputs.swap-storage }}"
+        DOCKER_IMAGES: "${{ inputs.docker-images }}"

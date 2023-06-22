@@ -32,13 +32,14 @@ jobs:
         large-packages: true
         swap-storage: true
         docker-images: true
+        tools-cache: true
 ```
 
 ## Options
 
 Most of the options are self-explanatory.
 
-The option `tool-cache` removes all the pre-cached tools (Node, Go, Python, Ruby, ...) that are loaded in a runner's environment, [installed in the path specified by the `AGENT_TOOLSDIRECTORY` environment variable](https://github.com/actions/virtual-environments/blob/5a2cb18a48bce5da183486b95f5494e4fd0c0640/images/linux/scripts/installers/configure-environment.sh#L25-L29) (the same environment variable is used across Windows/macOS/Linux runners, see an example of its use on [the `setup-python` GitHub Action](https://github.com/actions/setup-python)). This option was [suggested](https://github.com/actions/virtual-environments/issues/2875#issuecomment-1163392159) by [@miketimofeev](https://github.com/miketimofeev).
+The option `tools-cache` removes all the pre-cached tools (Node, Go, Python, Ruby, ...) that are loaded in a runner's environment, [installed in the path specified by the `AGENT_TOOLSDIRECTORY` environment variable](https://github.com/actions/virtual-environments/blob/5a2cb18a48bce5da183486b95f5494e4fd0c0640/images/linux/scripts/installers/configure-environment.sh#L25-L29) (the same environment variable is used across Windows/macOS/Linux runners, see an example of its use on [the `setup-python` GitHub Action](https://github.com/actions/setup-python)). This option was [suggested](https://github.com/actions/virtual-environments/issues/2875#issuecomment-1163392159) by [@miketimofeev](https://github.com/miketimofeev).
 
 ## Acknowledgement
 
@@ -62,6 +63,7 @@ The amount of space storage saved by each option on an `ubuntu-22.04` runner is 
 => Large misc. packages: Saved 5.3GiB
 => Tool cache: Saved 5.9GiB
 => Swap storage: Saved 4.0GiB
+=> Docker images: Saved 3.6GiB
 
 Total: Saved 31GiB
 ```

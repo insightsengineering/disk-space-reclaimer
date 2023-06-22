@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # ======
 # MACROS
 # ======
@@ -8,6 +10,7 @@ printSeparationLine() {
 	num=${2:-80}
 	counter=1
 	output=""
+	# shellcheck disable=SC2086
 	while [ $counter -le $num ]; do
 		output="${output}${str}"
 		counter=$((counter + 1))
@@ -18,10 +21,12 @@ printSeparationLine() {
 # macro to compute available space
 # REF: https://unix.stackexchange.com/a/42049/60849
 # REF: https://stackoverflow.com/a/450821/408734
+# shellcheck disable=SC2046,SC2005,SC2086
 getAvailableSpace() { echo $(df -a $1 | awk 'NR > 1 {avail+=$4} END {print avail}'); }
 
 # macro to make Kb human readable (assume the input is Kb)
 # REF: https://unix.stackexchange.com/a/44087/60849
+# shellcheck disable=SC2046,SC2005,SC2086
 formatByteCount() { echo $(numfmt --to=iec-i --suffix=B --padding=7 $1'000'); }
 
 # macro to output saved space
@@ -31,10 +36,10 @@ printSavedSpace() {
 
 	echo ""
 	printSeparationLine '*' 80
-	if [ ! -z "${title}" ]; then
-		echo "=> ${title}: Saved $(formatByteCount $saved)"
+	if [ -n "${title}" ]; then
+		echo "=> ${title}: Saved $(formatByteCount "$saved")"
 	else
-		echo "=> Saved $(formatByteCount $saved)"
+		echo "=> Saved $(formatByteCount "$saved")"
 	fi
 	printSeparationLine '*' 80
 	echo ""
@@ -71,7 +76,7 @@ echo ""
 
 # Option: Remove Android library
 
-if [[ "${ANDROID}" == "true" ]]; then
+if [[ "$ANDROID" == "true" ]]; then
 	BEFORE=$(getAvailableSpace)
 	sudo rm -rf /usr/local/lib/android
 	AFTER=$(getAvailableSpace)
@@ -81,7 +86,7 @@ fi
 
 # Option: Remove .NET runtime
 
-if [[ "${DOTNET}" == "true" ]]; then
+if [[ "$DOTNET" == "true" ]]; then
 	BEFORE=$(getAvailableSpace)
 
 	# https://github.community/t/bigger-github-hosted-runners-disk-space/17267/11
@@ -94,7 +99,7 @@ fi
 
 # Option: Remove Haskell runtime
 
-if [[ "${INPUT_HASKELL}" == "true" ]]; then
+if [[ "$HASKELL" == "true" ]]; then
 	BEFORE=$(getAvailableSpace)
 
 	sudo rm -rf /opt/ghc
@@ -107,7 +112,7 @@ fi
 # Option: Remove large packages
 # REF: https://github.com/apache/flink/blob/master/tools/azure-pipelines/free_disk_space.sh
 
-if [[ "${INPUT_LARGE-PACKAGES}" == "true" ]]; then
+if [[ "${LARGE_PACKAGES}" == "true" ]]; then
 	BEFORE=$(getAvailableSpace)
 
 	# Select alternative apt mirror since the original one is unstable
@@ -130,7 +135,7 @@ if [[ "${INPUT_LARGE-PACKAGES}" == "true" ]]; then
 fi
 
 # Option: Remove Docker images
-if [[ "${INPUT_DOCKER-IMAGES}" == 'true' ]]; then
+if [[ "$DOCKER_IMAGES" == 'true' ]]; then
 	BEFORE=$(getAvailableSpace)
 	sudo docker image prune --all --force
 	AFTER=$(getAvailableSpace)
@@ -141,7 +146,7 @@ fi
 # Option: Remove tool cache
 # REF: https://github.com/actions/virtual-environments/issues/2875#issuecomment-1163392159
 
-if [[ "${INPUT_TOOL-CACHE}" == "true" ]]; then
+if [[ "$TOOLS_CACHE" == "true" ]]; then
 	BEFORE=$(getAvailableSpace)
 
 	sudo rm -rf "$AGENT_TOOLSDIRECTORY"
@@ -153,7 +158,7 @@ fi
 
 # Option: Remove Swap storage
 
-if [[ "${INPUT_SWAP-STORAGE}" == "true" ]]; then
+if [[ "$SWAP_STORAGE" == "true" ]]; then
 	BEFORE=$(getAvailableSpace)
 
 	sudo swapoff -a
